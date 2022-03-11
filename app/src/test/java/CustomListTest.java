@@ -1,16 +1,21 @@
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import com.example.simpleparadox.listycity.City;
 import com.example.simpleparadox.listycity.CustomList;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 
 public class CustomListTest {
 
     private CustomList list;
+
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
 
     @Before
     public void createList(){
@@ -30,5 +35,15 @@ public class CustomListTest {
         list.addCity(city);
         assertEquals(1, list.hasCity(city));
         assertEquals(0, list.hasCity(new City("Calgary", "AB")));
+    }
+
+    @Test
+    public void deleteCityTest() {
+        final City city = new City("London", "GB");
+        list.addCity(city);
+        list.deleteCity(city);
+        assertEquals(0, list.getCount());
+        exceptionRule.expect(IllegalArgumentException.class);
+        list.deleteCity(city);
     }
 }
