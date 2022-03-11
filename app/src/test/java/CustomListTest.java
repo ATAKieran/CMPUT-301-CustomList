@@ -46,4 +46,14 @@ public class CustomListTest {
         exceptionRule.expect(IllegalArgumentException.class);
         list.deleteCity(city);
     }
+
+    @Test
+    public void countCitiesTest(){
+        City city = new City("Athens", "Gr");
+        City city2 = new City("Constantinople", "Bz");
+        list.addCity(city);
+        assertEquals(1, list.countCities());
+        list.addCity(city2);
+        assertEquals(2, list.countCities());
+    }
 }
